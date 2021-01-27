@@ -1,6 +1,6 @@
-import WorldMap from '../maps/world-map.svg'
-import WorldMapWithAntarctica from '../maps/world-map-with-antarctica.svg'
-import { createElementFromHTML, mergeDeep } from '../util/tools'
+import { mergeDeep } from '../util/tools'
+import loadSVG from 'load-svg'
+
 
 /**
  * QLMap
@@ -12,10 +12,13 @@ export class QLMap {
      * @param options
      */
     constructor(elem, options = {}) {
+        const self = this
+
         this.root = elem
         this.settings = mergeDeep(
             {
                 map:                        "world",
+                mapFile:                    "",
                 customMap:                  false,
                 territories:                true,
                 antarctica:                 false,
@@ -79,13 +82,18 @@ export class QLMap {
             options
         )
 
-        if (this.settings.map === "world") {
-            this.map = this.settings.antarctica ? createElementFromHTML(WorldMapWithAntarctica) : createElementFromHTML(WorldMap)
-        } else if (this.settings.map === "custom") {
-            // TODO: сделать импорт карты из customMap - для кастомных карт
-        }
+        if (this.settings.mapFile !== '') {
+            try {
+                loadSVG(this.settings.mapFile, function (err, svg) {
+                    if (svg !== undefined) {
+                        self.map = svg
+                        self.init()
+                    }
+                })
+            } catch (e) {
 
-        this.init()
+            }
+        }
     }
 
     /**

@@ -19,6 +19,7 @@
     "babel-loader": "^8.1.0",
     "css-loader": "^4.3.0",
     "cssnano": "^4.1.10",
+    "file-loader": "^6.2.0",
     "html-webpack-plugin": "^4.4.1",
     "node-sass": "^4.14.1",
     "postcss-loader": "^4.0.1",
@@ -30,5 +31,9 @@
     "webpack": "^4.44.1",
     "webpack-cli": "^3.3.12",
     "webpack-dev-server": "^3.11.0"
+  },
+  "dependencies": {
+    "copy-webpack-plugin": "^5.1.1",
+    "load-svg": "^1.0.0"
   }
 }
